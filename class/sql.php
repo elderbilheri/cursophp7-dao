@@ -12,7 +12,7 @@ class Sql extends PDO
     // Método para definir mais de um parãmetro
     private function setParams($statement, $parameters = array()) {
         foreach ($parameters as $key => $value) {
-            $this->setParam($key, $value);
+            $this->setParam($statement, $key, $value);
         }
     }
 
