@@ -123,18 +123,7 @@ class User
         ));
 
         if (count($results) > 0) {
-            $row = $results[0];
-
-            $this->setId($row["id"]);
-            $this->setNome($row["nome"]);
-            $this->setLogin($row["login"]);
-            $this->setSenha($row["senha"]);
-            $this->setEmail($row["email"]);
-            $this->setDataNascimento(new DateTime($row["data_nascimento"]));
-            $this->setGenero($row["genero"]);
-            $this->setDocumento($row["documento"]);
-            $this->setEndereco($row["endereco"]);
-            $this->setDataCadastro(new DateTime($row["data_cadastro"]));
+            $this->setData($results[0]);
         }
     }
 
@@ -167,23 +156,52 @@ class User
         ));
 
         if (count($results) > 0) {
-            $row = $results[0];
 
-            $this->setId($row["id"]);
-            $this->setNome($row["nome"]);
-            $this->setLogin($row["login"]);
-            $this->setSenha($row["senha"]);
-            $this->setEmail($row["email"]);
-            $this->setDataNascimento(new DateTime($row["data_nascimento"]));
-            $this->setGenero($row["genero"]);
-            $this->setDocumento($row["documento"]);
-            $this->setEndereco($row["endereco"]);
-            $this->setDataCadastro(new DateTime($row["data_cadastro"]));
+            $this->setData($results[0]);
+
         } else {
+
             throw new Exception("Login e/ou Senha invalidos! Tente novamente.");
+
         }
     }
 
+    // MÉTODO PADRÃO PARA SETAR AS INFORMAÇÕES DO REGISTRO DE UM USUÁRIO NO BANCO DE DADOS
+    public function setData($data) {
+
+        $this->setId($data["id"]);
+        $this->setNome($data["nome"]);
+        $this->setLogin($data["login"]);
+        $this->setSenha($data["senha"]);
+        $this->setEmail($data["email"]);
+        $this->setDataNascimento(new DateTime($data["data_nascimento"]));
+        $this->setGenero($data["genero"]);
+        $this->setDocumento($data["documento"]);
+        $this->setEndereco($data["endereco"]);
+        $this->setDataCadastro(new DateTime($data["data_cadastro"]));
+
+    }
+
+    // insert com procedures
+    public function insert() {
+        $sql = new Sql();
+
+        $results = $sql->select("CALL sp_usuarios_insert(:NOME, :LOGIN, :PASSWORD, :EMAIL, :DATA_NASCIMENTO, :GENERO, :DOCUMENTO, :ENDERECO)", array(
+            "NOME" =>  $this->getNome(),
+            "LOGIN" => $this->getLogin(),
+            "PASSWORD" => $this->getSenha(),
+            "EMAIL" => $this->getEmail(),
+            "DATA_NASCIMENTO" => $this->getDataNascimento(),
+            "GENERO" => $this->getGenero(),
+            "DOCUMENTO" => $this->getDocumento(),
+            "ENDERECO" => $this->getEndereco()
+        ));
+
+        if ($results > 0) {
+            $this->setData($results[0]);
+        }
+
+    }
 
     // Método mágico que, ao dar um "echo" no objeto, ao invés de mostar a estrutura do objeto, executa as instruções existentes dentro deste método.
     public function __toString()

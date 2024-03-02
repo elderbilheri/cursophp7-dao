@@ -28,8 +28,27 @@ require_once("config.php");
 
 // Carrega usuário autenticado
 
-$autenticado = new User();
+// $autenticado = new User();
 
-$autenticado->authentication("elder.bilheri", "1234@");
+// $autenticado->authentication("elder.bilheri", "1234@");
 
-echo $autenticado;
+// echo $autenticado;
+
+
+// ------------------------------------------
+
+$usuario = new User();
+
+$usuario->setNome("Rosa Medianeira");
+$usuario->setLogin("rosa.medianeira");
+$usuario->setSenha("rosa123");
+$usuario->setEmail("rosa_medianeira@email.com");
+$usuario->setDataNascimento("1968-09-16");
+$usuario->setGenero("Feminino");
+$usuario->setDocumento("021.016.081-16");
+$usuario->setEndereco("Rua Sepé Tiaraju, 392");
+
+$usuario->insert();
+
+echo  $usuario;
+?>
