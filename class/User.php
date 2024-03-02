@@ -203,6 +203,40 @@ class User
 
     }
 
+    public function update($nome, $genero) {
+
+        $this->setNome($nome);
+        $this->setGenero($genero);
+
+        $sql = new Sql();
+
+        $sql->query("UPDATE tb_usuarios SET nome = :NOME, genero = :GENERO WHERE id = :ID", array(
+            ":NOME" => $this->getNome(),
+            ":GENERO" => $this->getGenero(),
+            ":ID" => $this->getId()
+        ));
+    }
+
+    public function delete() {
+        $sql = new Sql();
+
+        $sql->query("DELETE FROM tb_usuarios WHERE id = :ID", array(
+           ":ID" => $this->getId()
+        ));
+
+        $this->setId(0);
+        $this->setNome(" ");
+        $this->setLogin(" ");
+        $this->setSenha(" ");
+        $this->setEmail(" ");
+        $this->setDataNascimento(new DateTime);
+        $this->setGenero(" ");
+        $this->setDocumento(" ");
+        $this->setEndereco(" ");
+        $this->setDataCadastro(new DateTime);
+
+    }
+
     // Método mágico que, ao dar um "echo" no objeto, ao invés de mostar a estrutura do objeto, executa as instruções existentes dentro deste método.
     public function __toString()
     {

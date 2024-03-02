@@ -37,18 +37,41 @@ require_once("config.php");
 
 // ------------------------------------------
 
+// $usuario = new User();
+
+// $usuario->setNome("Rosa Medianeira");
+// $usuario->setLogin("rosa.medianeira");
+// $usuario->setSenha("rosa123");
+// $usuario->setEmail("rosa_medianeira@email.com");
+// $usuario->setDataNascimento("1968-09-16");
+// $usuario->setGenero("Feminino");
+// $usuario->setDocumento("021.016.081-16");
+// $usuario->setEndereco("Rua Sepé Tiaraju, 392");
+
+// $usuario->insert();
+
+// echo  $usuario;
+
+
+// ------------------------------------------
+
+// $usuario = new User();
+
+// $usuario->loadById(13);
+
+// $usuario->update("Rosa Maria", "Feminino");
+
+// echo $usuario;
+
+
+// ------------------------------------------
+
 $usuario = new User();
 
-$usuario->setNome("Rosa Medianeira");
-$usuario->setLogin("rosa.medianeira");
-$usuario->setSenha("rosa123");
-$usuario->setEmail("rosa_medianeira@email.com");
-$usuario->setDataNascimento("1968-09-16");
-$usuario->setGenero("Feminino");
-$usuario->setDocumento("021.016.081-16");
-$usuario->setEndereco("Rua Sepé Tiaraju, 392");
+$usuario->loadById(13);
 
-$usuario->insert();
+$usuario->delete();
 
-echo  $usuario;
+echo $usuario;
+
 ?>
